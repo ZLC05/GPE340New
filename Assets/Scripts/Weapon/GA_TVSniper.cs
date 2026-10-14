@@ -47,8 +47,14 @@ public class GA_TVSniper : GameAction
         //Activate the raycast
         if (Physics.Raycast(firepoint.position, firepoint.forward, out hit, fireDistance))
         {
-            //Get the health component and deal damage to the enemy (fix is post PLEASE)
-            Debug.Log("THIS IS A REMINDER TO ADD A HEALTH COMPONENT ZACH YOU FUCKING DUMBASS");
+            //Get the health component and deal damage to the enemy
+            Health healthComponent = hit.collider.GetComponent<Health>();
+            //checks to see if health component exists on the colidded object
+            if (healthComponent != null)
+            {
+                //Take the damage
+                healthComponent.TakeDamage(damageDone);
+            }
             Debug.Log(hit.transform.gameObject);
 
             //Health or no health, limit the endpoint
