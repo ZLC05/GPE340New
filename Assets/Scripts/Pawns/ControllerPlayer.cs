@@ -8,7 +8,7 @@ public class ControllerPlayer : Controller
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
-        
+        //nothing yet
     }
 
     // Update is called once per frame
@@ -37,10 +37,10 @@ public class ControllerPlayer : Controller
         mouseRay = playerCam.ScreenPointToRay(raySPRT);
 
         float hitDistance;
-        if(footplane.Raycast(mouseRay, out hitDistance))
+        if (footplane.Raycast(mouseRay, out hitDistance))
         {
-           //if we hit the plane
-           Vector3 raycastHitPoint = mouseRay.GetPoint(hitDistance);
+            //if we hit the plane
+            Vector3 raycastHitPoint = mouseRay.GetPoint(hitDistance);
 
             //rotate to look at the point
             //go to pawn
@@ -51,7 +51,34 @@ public class ControllerPlayer : Controller
             //do nothing
         }
 
+        //Shooting!
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            pawn.weapon.OnPrimaryFireStart.Invoke();
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            pawn.weapon.OnPrimaryFireEnd.Invoke();
+            
+        }
+        //Add a Reload function
+
+
+
+        //reactivate when changing the system
+        /*
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            pawn.weapon.OnSecondaryFireStart.Invoke();
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            pawn.weapon.OnSecondaryFireEnd.Invoke();
+        }
+        */
     }
+
 
 
     //Posseses and Unposseses.

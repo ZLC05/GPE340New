@@ -2,7 +2,9 @@ using UnityEngine;
 
 public abstract class Controller : MonoBehaviour
 {
+    [Tooltip("Currently Possesed Pawn")]
     public Pawn pawn;
+    [Tooltip("YOUR player controller")]
     public Controller controller;
 
     protected virtual void Start()
