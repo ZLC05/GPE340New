@@ -3,6 +3,9 @@ using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
+    [Header("Inverse Kinematics")]
+    public Transform rightHandPoint;
+    public Transform leftHandPoint;
 
     [Header("Unity Events")]
     public UnityEvent OnEquip;
@@ -11,19 +14,6 @@ public class Weapon : MonoBehaviour
     public UnityEvent OnPrimaryFireEnd;
     public UnityEvent OnSecondaryFireStart;
     public UnityEvent OnSecondaryFireEnd;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
 
     //Unity Events Invoke Functions

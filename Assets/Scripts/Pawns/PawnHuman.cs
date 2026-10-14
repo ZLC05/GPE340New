@@ -7,6 +7,8 @@ public class PawnHuman : Pawn
     [Header("Animation")]
     [Tooltip("Attach the animations to the pawn here")]
     public Animator anim;
+
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -83,5 +85,55 @@ public class PawnHuman : Pawn
     {
         //nothing rn
     }
-   
+
+    public void OnAnimatorIK(int layerIndex)
+    {
+        //Checks if weapon is active
+        if(weapon == null)
+        {
+            anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 0f);
+            anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 0f);
+            anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0f);
+            anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0f);
+
+
+        }
+        else
+        {
+            //Hands will do what the animation tells them
+            if (weapon.rightHandPoint == null)
+            {
+                anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 0f);
+                anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 0f);
+
+            }
+            else
+            {
+
+                anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+                anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
+
+                anim.SetIKPosition(AvatarIKGoal.RightHand, weapon.rightHandPoint.position);
+                anim.SetIKRotation(AvatarIKGoal.RightHand, weapon.rightHandPoint.rotation);
+            }
+
+            //Hands will do what the animation tells them
+            if (weapon.leftHandPoint == null)
+            {
+                anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 0f);
+                anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 0f);
+
+            }
+            else
+            {
+
+                anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+                anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
+
+                anim.SetIKPosition(AvatarIKGoal.LeftHand, weapon.leftHandPoint.position);
+                anim.SetIKRotation(AvatarIKGoal.LeftHand, weapon.leftHandPoint.rotation);
+            }
+        }
+    }
+
 }
