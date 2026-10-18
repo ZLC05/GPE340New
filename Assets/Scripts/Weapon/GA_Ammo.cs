@@ -4,11 +4,12 @@ using UnityEngine.Events;
 
 public class GA_Ammo : MonoBehaviour
 {
-    [SerializeField] private int ammo;
-    [SerializeField] private int ammoPerShot;
-    [SerializeField] private int maxAmmo;
+    [SerializeField] public int ammo;
+    [SerializeField] public int ammoPerShot;
+    [SerializeField] public int maxAmmo;
     public UnityEvent OnSuccess;
     public UnityEvent OnFail;
+    public UnityEvent OnSecondarySuccess;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -35,6 +36,21 @@ public class GA_Ammo : MonoBehaviour
         }
     }
 
+    public void TryToShootSecondary()
+    {
+        Debug.Log("Shooting Secondary");
+        if (ammo >= ammoPerShot)
+        {
+            OnSecondarySuccess.Invoke();
+            
+            ammo = 0;
+            
+        }
+        else
+        {
+            OnFail.Invoke();
+        }
+    }
 
 
     public void SubtractAmmo(int ammoToLose)

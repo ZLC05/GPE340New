@@ -62,6 +62,11 @@ public class ControllerPlayer : Controller
             pawn.weapon.OnPrimaryFireEnd.Invoke();
             
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            pawn.weapon.OnSecondaryFireStart.Invoke();
+        }
         //Add a Reload function
 
 
