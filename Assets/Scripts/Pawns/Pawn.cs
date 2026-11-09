@@ -17,12 +17,16 @@ public abstract class Pawn : MonoBehaviour
     [Header("Weapons")]
     [Tooltip("Equipped Weapon")]
     public Weapon weapon;
+    [Tooltip("Weapon Mount Position")]
+    public Transform weaponMount;
 
 
-    
+
     public abstract void Move(Vector3 moveVector); //Move towards the target
     public abstract void Rotate(float angle); //Rotate towards an angle
     public abstract void LookAtPoint(Vector3 position); //Rotate towards a target
     public abstract void Posses(Controller controller); // Posess a controller
     public abstract void UnPosses(); // Unpossess a controller;
+
+    public abstract void Equip(GameObject weaponPrefab);//equip a weapon
 }

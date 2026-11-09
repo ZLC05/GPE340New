@@ -10,10 +10,14 @@ public class AIController : Controller
     public Transform targetTransform;
     private Vector3 desiredVelocity = Vector3.zero;
 
+    
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+        ControllerPlayer player = FindFirstObjectByType<ControllerPlayer>();
+        targetTransform = player.pawn.transform;
     }
 
     public override void Posess(Pawn pawnToPossess)
@@ -64,8 +68,20 @@ public class AIController : Controller
         // If we don't have a pawn, we can't make decisions for it, so do nothing
         if (pawn == null)
         {
-            Debug.Log("Making decision");
+            
             return;
+            
+        }
+
+        if(targetTransform != null)
+        {
+            //make decisions and seek the target
+
+            //if close enough to the player, start shooting(extra for LOS check
+            if(pawn.weapon != null)
+            {
+                TryShoot();
+            }
             
         }
 
@@ -80,5 +96,24 @@ public class AIController : Controller
 
         // Look towards the player
         pawn.LookAtPoint(targetTransform.position);
+    }
+
+    public virtual void TryShoot()
+    {
+        
+        if(Vector3.Distance(pawn.transform.position, targetTransform.position) <= stoppingDistance)
+        {
+            Vector3 vectorToTarget = targetTransform.position - pawn.transform.position;
+            float angleToTarget = Vector3.Angle(pawn.transform.forward, vectorToTarget);
+
+           pawn.weapon.StartPrimaryFire();
+
+            
+
+        }
+        else
+        {
+            pawn.weapon.EndPrimaryFire();
+        }
     }
 }

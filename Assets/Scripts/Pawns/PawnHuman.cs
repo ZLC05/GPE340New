@@ -22,6 +22,16 @@ public class PawnHuman : Pawn
         Debug.DrawRay(transform.position, transform.forward * 500, Color.red);
     }
 
+    //equip weapon
+    public override void Equip(GameObject weaponPrefab)
+    {
+        //TODO: mount position
+        GameObject newWeapon = Instantiate<GameObject>(weaponPrefab.gameObject,weaponMount.position, weaponMount.rotation) as GameObject;
+
+        newWeapon.transform.parent = weaponMount;
+    }
+
+
     public void OnAnimatorMove()
     {
         //Tries to find the AI controller if there is one.

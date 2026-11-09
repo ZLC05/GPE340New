@@ -20,13 +20,23 @@ public class GA_TVSniper : GameAction
 
     [Tooltip("The Laserbeam that shoots out")]
     public GameObject laserBeamPrefab;
-    
-    
+
+    [Tooltip("The accuracy of the laser")]
+    public float accuracy;
+
+    [Tooltip("The maximum accuracy")]
+    public float maxAccuracy;
 
 
 
     public void Shoot()
     {
+        Vector3 vectorPointForward = firepoint.forward;
+        float accuracyPercent = Random.Range(0, 1 - accuracy);
+        float rotationDegrees = Mathf.Lerp(-maxAccuracy, maxAccuracy, accuracyPercent);
+        Quaternion accuracyDelta = Quaternion.Euler(0, accuracyPercent, 0);
+        vectorPointForward = accuracyDelta * vectorPointForward;
+
         //Create a raycast to hold the data
         RaycastHit hit;
 
@@ -39,13 +49,14 @@ public class GA_TVSniper : GameAction
         theBeam.width = laserData.width;
         theBeam.lifespan = laserData.lifespan;
         theBeam.startPoint = firepoint.position;
-        theBeam.endPoint = firepoint.position + (firepoint.forward * fireDistance);
+        theBeam.endPoint = firepoint.position + (vectorPointForward * fireDistance);
 
 
+        
 
 
         //Activate the raycast
-        if (Physics.Raycast(firepoint.position, firepoint.forward, out hit, fireDistance))
+        if (Physics.Raycast(firepoint.position, vectorPointForward, out hit, fireDistance))
         {
             //Get the health component and deal damage to the enemy
             Health healthComponent = hit.collider.GetComponent<Health>();
